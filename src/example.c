@@ -3,18 +3,18 @@
     http://blosc.org
     License: MIT (see LICENSE.txt)
 
-    Example program demonstrating use of the Blosc filter from C code.
+    Example program demonstrating use of the Blosc2 filter from C code.
     This is based on the LZF example (http://h5py.alfven.org) by
     Andrew Collette.
 
     To compile this program:
 
-    h5cc blosc_filter.c example.c -o example -lblosc -lpthread
+    h5cc blosc2_filter.c example.c -o example -lblosc2 -lpthread
 
     To run:
 
     $ ./example
-    Blosc version info: 1.3.0 ($Date:: 2014-01-11 #$)
+    Blosc2 version info: 2.2.1.dev ($Date:: 2022-07-05 #$)
     Success!
     $ h5ls -v example.h5
     Opened "example.h5" with sec2 driver.
@@ -22,15 +22,15 @@
         Location:  1:800
         Links:     1
         Chunks:    {1, 100, 100} 40000 bytes
-        Storage:   4000000 logical bytes, 126002 allocated bytes, 3174.55% utilization
-        Filter-0:  blosc-32001 OPT {2, 2, 4, 40000, 4, 1, 2}
+        Storage:   4000000 logical bytes, 164806 allocated bytes, 2427.10% utilization
+        Filter-0:  blosc2-32002 OPT {2, 5, 4, 40000, 4, 1, 0}
         Type:      native float
 
 */
 
 #include <stdio.h>
 #include "hdf5.h"
-#include "blosc_filter.h"
+#include "blosc2_filter.h"
 
 #define SIZE 100*100*100
 #define SHAPE {100,100,100}
@@ -50,12 +50,12 @@ int main(){
     hid_t fid, sid, dset, plist = 0;
 
     for(i=0; i<SIZE; i++){
-        data[i] = i;
+        data[i] = (float) i;
     }
 
     /* Register the filter with the library */
-    r = register_blosc(&version, &date);
-    printf("Blosc version info: %s (%s)\n", version, date);
+    r = register_blosc2(&version, &date);
+    printf("Blosc2 version info: %s (%s)\n", version, date);
 
     if(r<0) goto failed;
 
@@ -72,24 +72,24 @@ int main(){
     r = H5Pset_chunk(plist, 3, chunkshape);
     if(r<0) goto failed;
 
-    /* Using the blosc filter in combination with other ones also works */
+    /* Using the blosc2 filter in combination with other ones also works */
     /*
     r = H5Pset_fletcher32(plist);
     if(r<0) goto failed;
     */
 
-    /* This is the easiest way to call Blosc with default values: 5
+    /* This is the easiest way to call Blosc2 with default values: 5
      for BloscLZ and shuffle active. */
-    /* r = H5Pset_filter(plist, FILTER_BLOSC, H5Z_FLAG_OPTIONAL, 0, NULL); */
+    /* r = H5Pset_filter(plist, FILTER_BLOSC2, H5Z_FLAG_OPTIONAL, 0, NULL); */
 
-    /* But you can also taylor Blosc parameters to your needs */
+    /* But you can also taylor Blosc2 parameters to your needs */
     /* 0 to 3 (inclusive) param slots are reserved. */
     cd_values[4] = 4;       /* compression level */
     cd_values[5] = 1;       /* 0: shuffle not active, 1: shuffle active */
     cd_values[6] = BLOSC_BLOSCLZ; /* the actual compressor to use */
 
     /* Set the filter with 7 params */
-    r = H5Pset_filter(plist, FILTER_BLOSC, H5Z_FLAG_OPTIONAL, 7, cd_values);
+    r = H5Pset_filter(plist, FILTER_BLOSC2, H5Z_FLAG_OPTIONAL, 7, cd_values);
 
     if(r<0) goto failed;
 

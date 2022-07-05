@@ -1,5 +1,5 @@
 /*
- * Dynamically loaded filter plugin for HDF5 blosc filter.
+ * Dynamically loaded filter plugin for HDF5 blosc2 filter.
  *
  * Author: Kiyoshi Masui <kiyo@physics.ubc.ca>
  * Created: 2014
@@ -9,7 +9,7 @@
  * -----------
  *
  * This provides dynamically loaded HDF5 filter functionality (introduced
- * in HDF5-1.8.11, May 2013) to the blosc HDF5 filter.
+ * in HDF5-1.8.11, May 2013) to the blosc2 HDF5 filter.
  *
  * Usage: compile as a shared library and install either to the default
  * search location for HDF5 filter plugins (on Linux 
@@ -19,8 +19,8 @@
  */
 
 
-#ifndef PLUGIN_BLOSC_H
-#define PLUGIN_BLOSC_H
+#ifndef PLUGIN_BLOSC2_H
+#define PLUGIN_BLOSC2_H
 
 #include "H5PLextern.h"
 
@@ -31,6 +31,6 @@ H5PL_type_t H5PLget_plugin_type(void);
 const void* H5PLget_plugin_info(void);
 
 
-#endif    // PLUGIN_BLOSC_H
+#endif    // PLUGIN_BLOSC2_H
 
 

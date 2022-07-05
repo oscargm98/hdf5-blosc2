@@ -1,5 +1,5 @@
-# AppVeyor CI build configuration for Blosc/hdf5-blosc
-# https://github.com/Blosc/hdf5-blosc
+# AppVeyor CI build configuration for Blosc/hdf5-blosc2
+# https://github.com/oscargm98/hdf5-blosc2
 
 init:
     # Before cloning the repo, configure git to handle line endings correctly.
@@ -7,7 +7,7 @@ init:
 
     # TODO: Need to download, unpack the HDF5 binaries and headers
     #       In the environment matrix below, make sure we also build against both HDF5 1.8 and 1.10
-    # TODO: Download, unpack, build c-blosc from sources.
+    # TODO: Download, unpack, build c-blosc2 from sources.
 
 
 version: '{build}'
