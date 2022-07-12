@@ -1,7 +1,7 @@
 /*
-    Copyright (C) 2010  Francesc Alted
-    http://blosc.org
-    License: MIT (see LICENSE.txt)
+    Copyright (C) 2021  The Blosc Developers <blosc@blosc.org>
+    https://blosc.org
+    License: BSD 3-Clause (see LICENSE.txt)
 
     Example program demonstrating use of the Blosc2 filter from C code.
     This is based on the LZF example (http://h5py.alfven.org) by
@@ -30,7 +30,7 @@
 
 #include <stdio.h>
 #include "hdf5.h"
-#include "blosc2_filter.h"
+#include "../src/blosc2_filter.h"
 
 #define SIZE 100*100*100
 #define SHAPE {100,100,100}
